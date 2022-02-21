@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ErrorHandler, NgModule } from "@angular/core";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterModule } from "@angular/router";
 
 import { NavbarComponent } from "./components/navbar/navbar.component";
@@ -13,7 +14,7 @@ import { HttpService } from "./services/http.service";
 
 @NgModule({
   declarations: [ToolbarComponent, NavbarComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatToolbarModule],
   exports: [ToolbarComponent, NavbarComponent],
   providers: [
     HttpService,

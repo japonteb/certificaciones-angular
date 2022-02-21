@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CoreModule } from "@core/core.module";
 import { HomeComponent } from "@home/home.component";
 import { ProductoModule } from "@producto/producto.module";
+import { CertificacionModule } from "@certificacion/certificacion.module";
+import { ClienteModule } from "@cliente/cliente.module";
 import { CookieService } from "ngx-cookie-service";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -17,6 +19,8 @@ import { AppComponent } from "./app.component";
     ProductoModule,
     CoreModule,
     BrowserAnimationsModule,
+    CertificacionModule,
+    ClienteModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
