@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ClienteComponent } from "./components/cliente/cliente.component";
-import { ListarClienteComponent } from "./components/listar-cliente/listar-cliente.component";
+import { ClienteComponent } from './components/cliente/cliente.component';
+import { ListarClienteComponent } from './components/listar-cliente/listar-cliente.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: ClienteComponent,
     children: [
       {
-        path: "listar",
+        path: 'listar',
         component: ListarClienteComponent,
       },
     ],

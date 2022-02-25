@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { CrearExamenComponent } from "./components/crear-examen/crear-examen.component";
-import { ExamenComponent } from "./components/examen/examen.component";
+import { CrearExamenComponent } from './components/crear-examen/crear-examen.component';
+import { ExamenComponent } from './components/examen/examen.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: ExamenComponent,
     children: [
       {
-        path: "crear",
+        path: 'crear',
         component: CrearExamenComponent,
       },
     ],

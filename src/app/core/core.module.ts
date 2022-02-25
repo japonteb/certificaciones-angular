@@ -1,16 +1,16 @@
-import { CommonModule } from "@angular/common";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ErrorHandler, NgModule } from "@angular/core";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { RouterModule } from "@angular/router";
+import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
 
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { ToolbarComponent } from "./components/toolbar/toolbar.component";
-import { SecurityGuard } from "./guard/security.guard";
-import { AuthInterceptor } from "./interceptor/auth-interceptor";
-import { ManejadorError } from "./interceptor/manejador-error";
-import { TokenInterceptor } from "./interceptor/token-interceptor";
-import { HttpService } from "./services/http.service";
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SecurityGuard } from './guard/security.guard';
+import { AuthInterceptor } from './interceptor/auth-interceptor';
+import { ManejadorError } from './interceptor/manejador-error';
+import { TokenInterceptor } from './interceptor/token-interceptor';
+import { HttpService } from './services/http.service';
 
 @NgModule({
   declarations: [ToolbarComponent, NavbarComponent],
