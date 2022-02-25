@@ -43,19 +43,6 @@ pipeline {
       }
     }
 
-    stage('Unit Test') {
-      steps {
-        echo "------------>Testing<------------"
-        sh 'npm run test'
-      }
-    }
-    stage('Test end-to-end') {
-      steps{
-        echo "------------>Testing Protractor<------------"
-        sh 'npm run e2e'
-      }
-    }
-
     stage('Static Code Analysis') {
       steps{
         sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:javier.certificaciones.front-javier.aponte',
