@@ -1,9 +1,8 @@
-import { browser, logging } from "protractor";
-import { NavbarPage } from "../page/navbar/navbar.po";
-import { AppPage } from "../app.po";
-import { ProductoPage } from "../page/producto/producto.po";
+import { AppPage } from '../app.po';
+import { NavbarPage } from '../page/navbar/navbar.po';
+import { ProductoPage } from '../page/producto/producto.po';
 
-describe("workspace-project Producto", () => {
+describe('workspace-project Producto', () => {
   let page: AppPage;
   let navBar: NavbarPage;
   let producto: ProductoPage;
@@ -14,9 +13,9 @@ describe("workspace-project Producto", () => {
     producto = new ProductoPage();
   });
 
-  it("Deberia crear producto", () => {
-    const ID_PRODUCTO = "001";
-    const DESCRIPCION_PRODUCTO = "Producto de pruebas";
+  it('Deberia crear producto', () => {
+    const ID_PRODUCTO = '001';
+    const DESCRIPCION_PRODUCTO = 'Producto de pruebas';
 
     page.navigateTo();
     navBar.clickBotonProductos();
@@ -28,7 +27,7 @@ describe("workspace-project Producto", () => {
     // expect(<>).toEqual(<>);
   });
 
-  it("Deberia listar productos", () => {
+  it('Deberia listar productos', () => {
     page.navigateTo();
     navBar.clickBotonProductos();
     producto.clickBotonListarProductos();
