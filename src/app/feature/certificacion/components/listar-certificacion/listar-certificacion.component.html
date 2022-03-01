@@ -6,7 +6,7 @@
 
   <div *ngIf="listaCertificaciones | async; else loading">
     <table mat-table [dataSource]="listaCertificaciones" class="mat-elevation-z8">
-
+      <caption>Lista de certificaciones disponibles.</caption>
       <!-- Columna nombre -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef> Nombre </th>
