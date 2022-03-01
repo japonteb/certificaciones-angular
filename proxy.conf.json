@@ -1,7 +1,8 @@
 {
-  "/prospectos-vida": {
-    "target": "http://192.168.1.115:9002",
+  "/certificaciones": {
+    "context": ["/certificaciones"],
+    "target": "http://localhost:8000/",
+    "secure": false,
     "logLevel": "debug"
   }
-
 }
