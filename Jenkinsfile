@@ -36,11 +36,32 @@ pipeline {
       }
     }
 
+    stage('NPM Install') {
+      steps {
+        echo "------------>Installing<------------"
+        sh 'npm install'
+      }
+    }
+
+    stage('Unit Test') {
+      steps {
+        echo "------------>Testing<------------"
+        sh 'npm run test -- --watch=false --browsers ChromeHeadless'
+      }
+    }
+
     stage('Static Code Analysis') {
       steps{
         sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:javier.certificaciones.front-javier.aponte',
         sonarName:'CeibaADN-Ceiba-CertificacionesFront-javier.aponte',
         sonarPathProperties:'./sonar-project.properties')
+      }
+    }
+
+     stage('Build') {
+      steps {
+        echo "------------>Building<------------"
+        sh 'npm run build'
       }
     }
 
