@@ -18,6 +18,6 @@ describe('workspace-project Certificacion', () => {
     navBar.clickBotonCertificaciones();
     certificacion.clickBotonListarCertificaciones();
 
-    expect(2).toBe(certificacion.contarCertificaciones());
+    expect(certificacion.contarCertificaciones()).toBeGreaterThan(0);
   });
 });

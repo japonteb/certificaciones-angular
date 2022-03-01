@@ -2,7 +2,6 @@ import { by, element } from 'protractor';
 
 export class CertificacionPage {
   private linkListarCertificaciones = element(by.id('linkListarCertificacion'));
-  //private listaCertificaciones = element.all('#studentListTable > tbody > tr');
   private listaCertificaciones = element.all(by.css('table tbody tr'));
 
   async clickBotonListarCertificaciones() {
