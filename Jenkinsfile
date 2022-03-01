@@ -50,6 +50,20 @@ pipeline {
       }
     }
 
+    stage('Test end-to-end') {
+      steps{
+        echo "------------>Testing Protractor<------------"
+        sh 'npm run e2e'
+      }
+    }
+
+    stage('esLint') {
+      steps {
+        echo "------------>Lint<------------"
+        sh 'npm run lint'
+      }
+    }
+
     stage('Static Code Analysis') {
       steps{
         sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:javier.certificaciones.front-javier.aponte',

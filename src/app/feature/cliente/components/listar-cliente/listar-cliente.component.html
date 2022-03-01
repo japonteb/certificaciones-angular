@@ -4,7 +4,7 @@
     Clientes
   </mat-toolbar>
   <div *ngIf="listaClientes | async; else loading">
-    <table mat-table [dataSource]="listaClientes" class="mat-elevation-z8">
+    <table id="tablaListaClientes" mat-table [dataSource]="listaClientes" class="mat-elevation-z8">
       <caption>Lista de clientes</caption>
       <!-- Columna nombre -->
       <ng-container matColumnDef="nombre">
