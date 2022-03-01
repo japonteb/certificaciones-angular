@@ -50,12 +50,12 @@ pipeline {
       }
     }
 
-    stage('Test end-to-end') {
-      steps{
-        echo "------------>Testing Protractor<------------"
-        sh 'npm run e2e'
-      }
-    }
+//    stage('Test end-to-end') {
+//      steps{
+//        echo "------------>Testing Protractor<------------"
+//        sh 'npm run e2e'
+//      }
+//    }
 
     stage('esLint') {
       steps {
