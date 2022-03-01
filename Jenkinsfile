@@ -43,20 +43,6 @@ pipeline {
       }
     }
 
-    stage('Build') {
-        steps {
-          echo "------------>Build<------------"
-          sh 'npm run build'
-        }
-    }
-
-    stage('esLint') {
-      steps {
-        echo "------------>Lint<------------"
-        sh 'npm run lint'
-      }
-    }
-
     stage('Unit Test') {
       steps {
         echo "------------>Testing<------------"
@@ -70,6 +56,13 @@ pipeline {
         sonarName:'CeibaADN-Ceiba-CertificacionesFront-javier.aponte',
         sonarPathProperties:'./sonar-project.properties')
       }
+    }
+
+    stage('Build') {
+        steps {
+          echo "------------>Build<------------"
+          sh 'npm run build'
+        }
     }
   }
 
