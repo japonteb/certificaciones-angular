@@ -71,14 +71,6 @@ pipeline {
         sonarPathProperties:'./sonar-project.properties')
       }
     }
-
-     stage('Build') {
-      steps {
-        echo "------------>Building<------------"
-        sh 'npm run build'
-      }
-    }
-
   }
 
   post {
