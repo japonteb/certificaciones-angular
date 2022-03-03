@@ -1,0 +1,46 @@
+<h1>Programar Examen</h1>
+<div class="contenedor">
+  <form [formGroup]="examenForm" (ngSubmit)="crear()">
+
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Cliente:</label>
+      </div>
+      <div class="col-sm-4">
+        <mat-label>Elija un cliente</mat-label><br>
+        <select formControlName="comandoCliente">
+          <option [ngValue]="cliente" *ngFor="let cliente of listaClientes">{{ cliente.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Certificacion:</label>
+      </div>
+      <div class="col-sm-4">
+        <mat-label>Elija una certificación</mat-label><br>
+        <select formControlName="comandoCertificacion">
+          <option [ngValue]="certificacion" *ngFor="let certificacion of listaCertificaciones">{{ certificacion.nombre
+            }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Fecha de presentación:</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="datetime-local" placeholder="Fecha de presentación del examen" formControlName="fechaPresentacion"
+          name="fechaPresentacion" id="fechaPresentacion" />
+      </div>
+    </div>
+
+
+
+
+    <button type="submit" mat-raised-button color="primary" id="botonSubmit">Crear</button>
+  </form>
+</div>

@@ -1,3 +1,4 @@
+import { AppMaterialModule } from './../../../../shared/app-material/app-material.module';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductoComponent } from './producto.component';
@@ -9,17 +10,19 @@ describe('ProductoComponent', () => {
   let component: ProductoComponent;
   let fixture: ComponentFixture<ProductoComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProductoComponent ],
-      imports: [
-        CommonModule,
-        HttpClientModule,
-        RouterTestingModule
-      ],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ProductoComponent],
+        imports: [
+          CommonModule,
+          HttpClientModule,
+          RouterTestingModule,
+          AppMaterialModule,
+        ],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductoComponent);

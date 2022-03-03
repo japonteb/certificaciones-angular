@@ -11,23 +11,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('@producto/producto.module').then((mod) => mod.ProductoModule),
   },
-  {
-    path: 'certificacion',
-    loadChildren: () =>
-      import('@certificacion/certificacion.module').then(
-        (mod) => mod.CertificacionModule
-      ),
-  },
-  {
-    path: 'cliente',
-    loadChildren: () =>
-      import('@cliente/cliente.module').then((mod) => mod.ClienteModule),
-  },
-  {
-    path: 'examen',
-    loadChildren: () =>
-      import('@examen/examen.module').then((mod) => mod.ExamenModule),
-  },
 ];
 
 @NgModule({

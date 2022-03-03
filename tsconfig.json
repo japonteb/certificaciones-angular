@@ -20,10 +20,7 @@
       "@core-service/*": ["src/app/core/services/*"],
       "@home/*": ["src/app/feature/home/*"],
       "@producto/*": ["src/app/feature/producto/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "@certificacion/*": ["src/app/feature/certificacion/*"],
-      "@cliente/*": ["src/app/feature/cliente/*"],
-      "@examen/*": ["src/app/feature/examen/*"]
+      "@shared/*": ["src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {

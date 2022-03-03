@@ -1,0 +1,44 @@
+<h1>Registrar Certificación</h1>
+<div class="contenedor">
+  <form [formGroup]="certificacionForm" (ngSubmit)="crear()">
+
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Nombre:</label>
+      </div>
+      <div class="col-sm-4">
+        <input validar type="text" id="nombreCertificacion" name="nombre" placeholder="Nombre certificación"
+          class="form-control" formControlName="nombre">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Detalle:</label>
+      </div>
+      <div class="col-sm-4">
+        <input validar type="text" id="detalleCertificacion" name="detalle" placeholder="Detalle certificación"
+          class="form-control" formControlName="detalle">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Duración:</label>
+      </div>
+      <div class="col-sm-4">
+        <input validar type="text" id="duracionCertificacion" name="duracion" placeholder="Duración certificación"
+          class="form-control" formControlName="duracion">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Precio:</label>
+      </div>
+      <div class="col-sm-4">
+        <input validar type="text" id="precioCertificacion" name="precio" placeholder="Precio certificación"
+          class="form-control" formControlName="precio">
+      </div>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary" id="botonSubmit">Crear</button>
+  </form>
+</div>
