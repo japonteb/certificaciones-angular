@@ -16,6 +16,8 @@ export class ExamenService {
   }
 
   public guardar(examen: Examen) {
+    examen.fechaPresentacion =
+      examen.fechaPresentacion.replace('T', ' ') + ':00';
     return this.http.doPost<Examen, boolean>(
       `${environment.endpoint}/examenes`,
       examen,
