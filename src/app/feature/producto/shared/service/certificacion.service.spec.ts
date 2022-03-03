@@ -57,7 +57,7 @@ describe('CertificacionService', () => {
     });
     const req = httpMock.expectOne(apiEndpointCertificaciones);
     expect(req.request.method).toBe('POST');
-    req.event(new HttpResponse<boolean>({ body: true }));
+    req.event(new HttpResponse<Certificacion>({ body: dummyCertificacion }));
   });
 
   it('deberia eliminar una certificacion', () => {

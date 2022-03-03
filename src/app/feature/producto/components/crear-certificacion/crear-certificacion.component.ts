@@ -28,7 +28,7 @@ export class CrearCertificacionComponent implements OnInit {
     }
   }
 
-  private construirFormularioCertificacion() {
+  public construirFormularioCertificacion() {
     this.certificacionForm = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
       detalle: new FormControl('', [Validators.required]),

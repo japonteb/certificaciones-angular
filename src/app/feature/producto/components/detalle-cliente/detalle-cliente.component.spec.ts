@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpService } from '@core/services/http.service';
 import { Cliente } from '@producto/shared/model/cliente';
 import { ClienteService } from '@producto/shared/service/cliente.service';
+import { ExamenService } from '@producto/shared/service/examen.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
 import { of } from 'rxjs';
 import { DetalleClienteComponent } from './detalle-cliente.component';
@@ -27,7 +28,7 @@ describe('DetalleClienteComponent', () => {
         FormsModule,
         AppMaterialModule,
       ],
-      providers: [ClienteService, HttpService],
+      providers: [ClienteService, ExamenService, HttpService],
     }).compileComponents();
   });
 
@@ -41,8 +42,5 @@ describe('DetalleClienteComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    component.listaExamenes.subscribe((resultado) => {
-      expect(1).toBe(resultado.length);
-    });
   });
 });

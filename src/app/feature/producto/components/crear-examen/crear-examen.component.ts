@@ -45,7 +45,6 @@ export class CrearExamenComponent implements OnInit {
     }
   }
   async crear() {
-    console.log(this.examenForm.value);
     try {
       this.examen = await this.examenService
         .guardar(this.examenForm.value)
@@ -56,7 +55,7 @@ export class CrearExamenComponent implements OnInit {
     }
   }
 
-  private construirFormularioExamen() {
+  public construirFormularioExamen() {
     this.examenForm = new FormGroup({
       id: new FormControl(),
       comandoCliente: new FormControl(),

@@ -16,12 +16,6 @@ export class ExamenService {
   }
 
   public guardar(examen: Examen) {
-    console.log('Llego a guardar');
-    console.log(examen);
-    console.log('Llego a cliente');
-    console.log(examen.comandoCliente);
-    console.log('Llego a certificacion');
-    console.log(examen.comandoCertificacion);
     return this.http.doPost<Examen, boolean>(
       `${environment.endpoint}/examenes`,
       examen,

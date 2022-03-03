@@ -39,11 +39,16 @@ describe('ClienteService', () => {
   });
 
   it('deberia listar cliente por id', () => {
+    const clienteId = 1;
     const dummyCliente = new Cliente(1, 'test nombre', 1);
-    service.consultarPorId(dummyCliente.id).subscribe((cliente) => {
-      expect(cliente.id).toEqual(dummyCliente.id);
+
+    service.consultarPorId(clienteId).subscribe((cliente) => {
+      expect(cliente.id).toEqual(clienteId);
+      expect(cliente).toEqual(dummyCliente);
     });
-    const req = httpMock.expectOne(apiEndpointClienteConsulta);
+    const req = httpMock.expectOne(
+      apiEndpointClienteConsulta + '/' + clienteId
+    );
     expect(req.request.method).toBe('GET');
     req.flush(dummyCliente);
   });

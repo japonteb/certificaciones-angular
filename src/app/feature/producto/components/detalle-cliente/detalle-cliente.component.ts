@@ -24,14 +24,16 @@ export class DetalleClienteComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activatedRouter.snapshot.params.id;
-    this.clienteService.consultarPorId(id).subscribe(
-      (data) => {
-        this.cliente = data;
-      },
-      (error) => {
-        console.log('Error' + error);
-      }
-    );
-    this.listaExamenes = this.examenService.consultarPorClientId(id);
+    if (id !== undefined) {
+      this.clienteService.consultarPorId(id).subscribe(
+        (data) => {
+          this.cliente = data;
+        },
+        (error) => {
+          console.log('Error' + error);
+        }
+      );
+      this.listaExamenes = this.examenService.consultarPorClientId(id);
+    }
   }
 }

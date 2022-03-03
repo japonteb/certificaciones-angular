@@ -1,10 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  tick,
+  waitForAsync,
+  fakeAsync,
+} from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Certificacion } from '@producto/shared/model/certificacion';
 import { CertificacionService } from '@producto/shared/service/certificacion.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
+import { of } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { CrearCertificacionComponent } from './crear-certificacion.component';
 
@@ -12,6 +20,13 @@ describe('CrearCertificacionComponent', () => {
   let component: CrearCertificacionComponent;
   let fixture: ComponentFixture<CrearCertificacionComponent>;
   let certificacionService: CertificacionService;
+  const certificacion: Certificacion = new Certificacion(
+    1,
+    'Test nombre',
+    'Test Detalle',
+    120,
+    500
+  );
 
   beforeEach(
     waitForAsync(() => {
@@ -34,27 +49,51 @@ describe('CrearCertificacionComponent', () => {
     fixture = TestBed.createComponent(CrearCertificacionComponent);
     component = fixture.componentInstance;
     certificacionService = TestBed.inject(CertificacionService);
-    spyOn(certificacionService, 'guardar');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('formulario es invalido cuando esta vacio', () => {
+  it('#ngOnInit -> Debería ejecutar lo de ngOnInit, por lo que debe ser llamada la funcion construirFormularioCertificacion', () => {
+    const llamarFormulario = spyOn(
+      component,
+      'construirFormularioCertificacion'
+    );
+    component.ngOnInit();
+    expect(llamarFormulario).toHaveBeenCalled();
+  });
+
+  it(`#crear -> Debería llamar al servicio guardar certificacion`, fakeAsync(() => {
+    // arrange
+    component.construirFormularioCertificacion();
+    const respuestaServicioGuardar = spyOn(
+      certificacionService,
+      'guardar'
+    ).and.returnValue(of(certificacion));
+
+    // act
+    component.crear();
+    tick(100);
+    // assert
+    expect(component.certificacion).toBe(certificacion);
+    expect(respuestaServicioGuardar).toHaveBeenCalled();
+  }));
+
+  it(`#construirFormularioCertificacion -> Formulario invalido cuando está vacio`, () => {
+    // act - assert
+    component.construirFormularioCertificacion();
     expect(component.certificacionForm.valid).toBeFalsy();
   });
 
-  it('Registrando certificacion', () => {
-    expect(component.certificacionForm.valid).toBeFalsy();
-    component.certificacionForm.controls.nombre.setValue('test nombre 1');
-    component.certificacionForm.controls.descripcion.setValue(
-      'Certificacion test'
-    );
+  it(`#construirFormularioCertificacion -> Formulario valido cuando está diligenciado`, () => {
+    // act
+    component.construirFormularioCertificacion();
+    component.certificacionForm.controls.nombre.setValue('Test nombre');
+    component.certificacionForm.controls.detalle.setValue('Test Detalle');
     component.certificacionForm.controls.duracion.setValue(120);
     component.certificacionForm.controls.precio.setValue(500);
+    // assert
     expect(component.certificacionForm.valid).toBeTruthy();
-
-    component.crear();
   });
 });
