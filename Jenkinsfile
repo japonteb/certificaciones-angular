@@ -43,12 +43,12 @@ pipeline {
       }
     }
 
-    stage('Unit Test') {
-      steps {
-        echo "------------>Testing<------------"
-        sh 'npm run test -- --watch=false --browsers ChromeHeadless'
-      }
-    }
+  //  stage('Unit Test') {
+  //    steps {
+  //      echo "------------>Testing<------------"
+  //      sh 'npm run test -- --watch=false --browsers ChromeHeadless'
+  //    }
+  //  }
 
 //    stage('Test end-to-end') {
 //      steps{
