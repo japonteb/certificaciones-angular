@@ -3,6 +3,9 @@ import { Certificacion } from '@producto/shared/model/certificacion';
 import { CertificacionService } from '@producto/shared/service/certificacion.service';
 import { Observable } from 'rxjs';
 
+const MENSAJE_CONFIRMAR_ELIMINAR_CERTIFICACION =
+  '¿Realmente quiere borrar la certificación?';
+
 @Component({
   selector: 'app-listar-certificacion',
   templateUrl: './listar-certificacion.component.html',
@@ -18,14 +21,18 @@ export class ListarCertificacionComponent implements OnInit {
     this.listaCertificaciones = this.certificacionService.consultar();
   }
 
-  async eliminarCertificacion(certificacion: Certificacion) {
-    if (confirm('¿Realmente quiere borrar la certificación?')) {
+  async eliminarCertificacion(certificacionId: number) {
+    if (this.confirmarEliminarCertificacion()) {
       try {
-        await this.certificacionService.eliminar(certificacion).toPromise();
+        await this.certificacionService.eliminar(certificacionId).toPromise();
         this.listaCertificaciones = this.certificacionService.consultar();
       } catch (error) {
         console.log(error);
       }
     }
+  }
+
+  confirmarEliminarCertificacion() {
+    return confirm(MENSAJE_CONFIRMAR_ELIMINAR_CERTIFICACION);
   }
 }

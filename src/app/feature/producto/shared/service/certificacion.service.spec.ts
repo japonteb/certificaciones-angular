@@ -68,7 +68,7 @@ describe('CertificacionService', () => {
       120,
       500
     );
-    service.eliminar(dummyCertificacion).subscribe((respuesta) => {
+    service.eliminar(dummyCertificacion.id).subscribe((respuesta) => {
       expect(respuesta).toEqual(true);
     });
     const req = httpMock.expectOne(`${apiEndpointCertificaciones}/1`);

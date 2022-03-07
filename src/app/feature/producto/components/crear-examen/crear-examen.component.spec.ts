@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpService } from '@core/services/http.service';
 import { Certificacion } from '@producto/shared/model/certificacion';
@@ -10,7 +11,6 @@ import { CertificacionService } from '@producto/shared/service/certificacion.ser
 import { ClienteService } from '@producto/shared/service/cliente.service';
 import { ExamenService } from '@producto/shared/service/examen.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
-
 import { CrearExamenComponent } from './crear-examen.component';
 
 describe('CrearExamenComponent', () => {
@@ -37,6 +37,7 @@ describe('CrearExamenComponent', () => {
           ReactiveFormsModule,
           FormsModule,
           AppMaterialModule,
+          RouterModule,
         ],
         providers: [
           ExamenService,

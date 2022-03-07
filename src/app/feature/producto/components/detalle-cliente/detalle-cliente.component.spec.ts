@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpService } from '@core/services/http.service';
 import { Cliente } from '@producto/shared/model/cliente';
@@ -15,6 +16,7 @@ describe('DetalleClienteComponent', () => {
   let component: DetalleClienteComponent;
   let fixture: ComponentFixture<DetalleClienteComponent>;
   let clienteService: ClienteService;
+
   const cliente = new Cliente(1, 'Test nombre', 1);
 
   beforeEach(async () => {
@@ -27,6 +29,7 @@ describe('DetalleClienteComponent', () => {
         ReactiveFormsModule,
         FormsModule,
         AppMaterialModule,
+        RouterModule,
       ],
       providers: [ClienteService, ExamenService, HttpService],
     }).compileComponents();
@@ -36,11 +39,22 @@ describe('DetalleClienteComponent', () => {
     fixture = TestBed.createComponent(DetalleClienteComponent);
     component = fixture.componentInstance;
     clienteService = TestBed.inject(ClienteService);
-    spyOn(clienteService, 'consultarPorId').and.returnValue(of(cliente));
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Deberia buscar el cliente con el id como parametro ', () => {
+    //arrange
+    const clienteId = 1;
+    const respuestaServicioConsultarPorId = spyOn(
+      clienteService,
+      'consultarPorId'
+    ).and.returnValue(of(cliente));
+
+    //act
+    component.consultarPorId(clienteId);
+
+    //assert
     expect(component).toBeTruthy();
+    expect(respuestaServicioConsultarPorId).toHaveBeenCalled();
+    expect(respuestaServicioConsultarPorId).toBeTruthy();
   });
 });

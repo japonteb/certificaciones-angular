@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
   tick,
   waitForAsync,
-  fakeAsync,
 } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Certificacion } from '@producto/shared/model/certificacion';
 import { CertificacionService } from '@producto/shared/service/certificacion.service';
@@ -39,6 +40,7 @@ describe('CrearCertificacionComponent', () => {
           ReactiveFormsModule,
           FormsModule,
           AppMaterialModule,
+          RouterModule,
         ],
         providers: [CertificacionService, HttpService],
       }).compileComponents();

@@ -22,9 +22,9 @@ export class CertificacionService {
     );
   }
 
-  public eliminar(certificacion: Certificacion) {
+  public eliminar(certificacionId: number) {
     return this.http.doDelete<boolean>(
-      `${environment.endpoint}/certificaciones/${certificacion.id}`,
+      `${environment.endpoint}/certificaciones/${certificacionId}`,
       this.http.optsName('eliminar certificaciones')
     );
   }

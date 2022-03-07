@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Cliente } from '@producto/shared/model/cliente';
 import { ClienteService } from '@producto/shared/service/cliente.service';
@@ -24,6 +25,7 @@ describe('ListarClienteComponent', () => {
           HttpClientModule,
           RouterTestingModule,
           AppMaterialModule,
+          RouterModule,
         ],
         providers: [ClienteService, HttpService],
       }).compileComponents();
@@ -34,11 +36,11 @@ describe('ListarClienteComponent', () => {
     fixture = TestBed.createComponent(ListarClienteComponent);
     component = fixture.componentInstance;
     clienteService = TestBed.inject(ClienteService);
-    spyOn(clienteService, 'consultar').and.returnValue(of(listaClientes));
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Deberia listar los clientes disponibles y su tamaño ser igual a 2', () => {
+    spyOn(clienteService, 'consultar').and.returnValue(of(listaClientes));
+    fixture.detectChanges();
     expect(component).toBeTruthy();
     component.listaClientes.subscribe((resultado) => {
       expect(1).toBe(resultado.length);
