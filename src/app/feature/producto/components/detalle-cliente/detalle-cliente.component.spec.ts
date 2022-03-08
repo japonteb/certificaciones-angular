@@ -16,7 +16,7 @@ describe('DetalleClienteComponent', () => {
   let component: DetalleClienteComponent;
   let fixture: ComponentFixture<DetalleClienteComponent>;
   let clienteService: ClienteService;
-
+  let examenService: ExamenService;
   const cliente = new Cliente(1, 'Test nombre', 1);
 
   beforeEach(async () => {
@@ -39,22 +39,40 @@ describe('DetalleClienteComponent', () => {
     fixture = TestBed.createComponent(DetalleClienteComponent);
     component = fixture.componentInstance;
     clienteService = TestBed.inject(ClienteService);
+    examenService = TestBed.inject(ExamenService);
   });
 
   it('Deberia buscar el cliente con el id como parametro ', () => {
-    //arrange
+    // arrange
     const clienteId = 1;
     const respuestaServicioConsultarPorId = spyOn(
       clienteService,
       'consultarPorId'
     ).and.returnValue(of(cliente));
 
-    //act
+    // act
     component.consultarPorId(clienteId);
 
-    //assert
+    // assert
     expect(component).toBeTruthy();
     expect(respuestaServicioConsultarPorId).toHaveBeenCalled();
     expect(respuestaServicioConsultarPorId).toBeTruthy();
+  });
+
+  it('Deberia buscar los exámenes asociados a un cliente, por el id del cliente ', () => {
+    // arrange
+    const clienteId = 2;
+    const respuestaServicioConsultarExamenes = spyOn(
+      examenService,
+      'consultarPorClientId'
+    )
+      .withArgs(clienteId)
+      .and.callThrough();
+
+    component.consultarExamenesPorClienteId(clienteId);
+
+    // assert
+    expect(component.consultarExamenesPorClienteId).toBeTruthy();
+    expect(respuestaServicioConsultarExamenes).toHaveBeenCalled();
   });
 });
