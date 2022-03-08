@@ -15,6 +15,8 @@ export class DetalleClienteComponent implements OnInit {
   public cliente: Cliente;
   public listaExamenes: Observable<ExamenCertificacion[]>;
   columnasAMostrar = ['nombre', 'detalle', 'fechaPresentacion', 'precioTotal'];
+  existeError = false;
+  mensajeError: string;
 
   constructor(
     protected clienteService: ClienteService,
@@ -36,7 +38,8 @@ export class DetalleClienteComponent implements OnInit {
         this.cliente = data;
       },
       (error) => {
-        console.log('Error' + error);
+        this.mensajeError = error.error.mensaje;
+        this.existeError = true;
       }
     );
   }
