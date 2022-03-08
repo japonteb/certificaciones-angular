@@ -87,7 +87,7 @@ describe('CrearCertificacionComponent', () => {
     const mensajeError =
       'No fue posible crear la certificación, ocurrió un error.';
     component.construirFormularioCertificacion();
-    const respuestaServicioGuardar = spyOn(
+    const respuestaServicioGuardarCertificacion = spyOn(
       certificacionService,
       'guardar'
     ).and.returnValue(
@@ -98,7 +98,7 @@ describe('CrearCertificacionComponent', () => {
     component.crear();
     tick(100);
     // assert
-    expect(respuestaServicioGuardar).toHaveBeenCalled();
+    expect(respuestaServicioGuardarCertificacion).toHaveBeenCalled();
     expect(component.mensajeError).toBe(mensajeError);
     expect(component.existeError).toBeTrue();
   }));

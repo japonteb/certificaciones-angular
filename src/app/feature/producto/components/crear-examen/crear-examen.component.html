@@ -1,5 +1,5 @@
 <h1>Programar Examen</h1>
-<div class="contenedor">
+<div class="contenedor" *ngIf="!existeError">
   <form [formGroup]="examenForm" (ngSubmit)="crear()">
 
     <div class="row">
@@ -43,4 +43,8 @@
 
     <button type="submit" mat-raised-button color="primary" id="botonSubmit">Crear</button>
   </form>
+</div>
+
+<div *ngIf="existeError">
+  <p>{{mensajeError}}</p>
 </div>

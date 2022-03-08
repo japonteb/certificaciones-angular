@@ -17,7 +17,7 @@ import { CertificacionService } from '@producto/shared/service/certificacion.ser
 import { ClienteService } from '@producto/shared/service/cliente.service';
 import { ExamenService } from '@producto/shared/service/examen.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { CrearExamenComponent } from './crear-examen.component';
 
 describe('CrearExamenComponent', () => {
@@ -117,6 +117,27 @@ describe('CrearExamenComponent', () => {
     expect(respuestaServicioConsultarClientes).toHaveBeenCalled();
   }));
 
+  it(`#cargar Listas Clientes -> Debería presentarse un error e irse a catch, y mostrar el mensaje de error`, fakeAsync(() => {
+    // arrange
+    const mensajeError =
+      'No fue posible cargar la lista de clientes, ocurrió un error.';
+
+    const respuestaServicioConsultarClientes = spyOn(
+      clienteService,
+      'consultar'
+    ).and.returnValue(
+      throwError({ status: 404, error: { mensaje: mensajeError } })
+    );
+
+    // act
+    component.cargarListasClientes();
+    tick(100);
+    // assert
+    expect(respuestaServicioConsultarClientes).toHaveBeenCalled();
+    expect(component.mensajeError).toBe(mensajeError);
+    expect(component.existeError).toBeTrue();
+  }));
+
   it(`#cargar Listas Certificaciones -> Prueba del método para cargar lista de certificaciones`, fakeAsync(() => {
     const respuestaServicioConsultarCertificaciones = spyOn(
       certificacionService,
@@ -133,6 +154,27 @@ describe('CrearExamenComponent', () => {
     expect(respuestaServicioConsultarCertificaciones).toHaveBeenCalled();
   }));
 
+  it(`#cargar Listas Certificaciones -> Debería presentarse un error e irse a catch, y mostrar el mensaje de error`, fakeAsync(() => {
+    // arrange
+    const mensajeError =
+      'No fue posible cargar la lista de certificaciones, ocurrió un error.';
+
+    const respuestaServicioConsultarCertificaciones = spyOn(
+      certificacionService,
+      'consultar'
+    ).and.returnValue(
+      throwError({ status: 404, error: { mensaje: mensajeError } })
+    );
+
+    // act
+    component.cargarListasCertificaciones();
+    tick(100);
+    // assert
+    expect(respuestaServicioConsultarCertificaciones).toHaveBeenCalled();
+    expect(component.mensajeError).toBe(mensajeError);
+    expect(component.existeError).toBeTrue();
+  }));
+
   it(`#crear -> Debería llamar al servicio guardar examen`, fakeAsync(() => {
     // arrange
     component.construirFormularioExamen();
@@ -147,5 +189,25 @@ describe('CrearExamenComponent', () => {
     // assert
     expect(component.examenCreado).toBe(true);
     expect(respuestaServicioGuardar).toHaveBeenCalled();
+  }));
+
+  it(`#crear -> Debería presentarse un error e irse a catch, y mostrar el mensaje de error`, fakeAsync(() => {
+    // arrange
+    const mensajeError = 'No fue posible crear el examen, ocurrió un error.';
+    component.construirFormularioExamen();
+    const respuestaServicioGuardarExamen = spyOn(
+      examenService,
+      'guardar'
+    ).and.returnValue(
+      throwError({ status: 404, error: { mensaje: mensajeError } })
+    );
+
+    // act
+    component.crear();
+    tick(100);
+    // assert
+    expect(respuestaServicioGuardarExamen).toHaveBeenCalled();
+    expect(component.mensajeError).toBe(mensajeError);
+    expect(component.existeError).toBeTrue();
   }));
 });

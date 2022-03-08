@@ -17,6 +17,8 @@ export class CrearExamenComponent implements OnInit {
   examenCreado: boolean;
   public listaCertificaciones: Certificacion[];
   public listaClientes: Cliente[];
+  existeError = false;
+  mensajeError: string;
 
   constructor(
     protected examenService: ExamenService,
@@ -37,7 +39,8 @@ export class CrearExamenComponent implements OnInit {
         .toPromise()
         .then();
     } catch (error) {
-      console.log(error.error.mensaje);
+      this.mensajeError = error.error.mensaje;
+      this.existeError = true;
     }
   }
 
@@ -48,7 +51,8 @@ export class CrearExamenComponent implements OnInit {
         .toPromise()
         .then();
     } catch (error) {
-      console.log(error.error.mensaje);
+      this.mensajeError = error.error.mensaje;
+      this.existeError = true;
     }
   }
 
@@ -59,7 +63,8 @@ export class CrearExamenComponent implements OnInit {
         .toPromise()
         .then();
     } catch (error) {
-      console.log(error.error.mensaje);
+      this.mensajeError = error.error.mensaje;
+      this.existeError = true;
     }
   }
 
