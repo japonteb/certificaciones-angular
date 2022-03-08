@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpService } from '@core/services/http.service';
 import { Cliente } from '@producto/shared/model/cliente';
+import { ExamenCertificacion } from '@producto/shared/model/examen-certificacion';
 import { ClienteService } from '@producto/shared/service/cliente.service';
 import { ExamenService } from '@producto/shared/service/examen.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
@@ -17,7 +18,16 @@ describe('DetalleClienteComponent', () => {
   let fixture: ComponentFixture<DetalleClienteComponent>;
   let clienteService: ClienteService;
   let examenService: ExamenService;
-  const cliente = new Cliente(1, 'Test nombre', 1);
+  const clienteDummy = new Cliente(1, 'Test nombre', 1);
+  const listaExamenes: ExamenCertificacion[] = [
+    new ExamenCertificacion(
+      1,
+      'Test nombre',
+      'Test Detalle',
+      '2022-02-23 19:34:55',
+      500
+    ),
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -48,7 +58,7 @@ describe('DetalleClienteComponent', () => {
     const respuestaServicioConsultarPorId = spyOn(
       clienteService,
       'consultarPorId'
-    ).and.returnValue(of(cliente));
+    ).and.returnValue(of(clienteDummy));
 
     // act
     component.consultarPorId(clienteId);
@@ -74,5 +84,36 @@ describe('DetalleClienteComponent', () => {
     // assert
     expect(component.consultarExamenesPorClienteId).toBeTruthy();
     expect(respuestaServicioConsultarExamenes).toHaveBeenCalled();
+  });
+
+  it('Deberia buscar un cliente por su id ', () => {
+    // arrange
+    const clienteId = 1;
+    spyOn(clienteService, 'consultarPorId')
+      .withArgs(clienteId)
+      .and.returnValue(of(clienteDummy));
+
+    component.consultarPorId(clienteId);
+
+    // assert
+    expect(component.consultarPorId).toBeTruthy();
+    expect(component.cliente).toBe(clienteDummy);
+  });
+
+  it('Deberia buscar exámenes por el id del cliente ', () => {
+    // arrange
+    const clienteId = 1;
+    spyOn(examenService, 'consultarPorClientId')
+      .withArgs(clienteId)
+      .and.returnValue(of(listaExamenes));
+    fixture.detectChanges();
+
+    component.consultarExamenesPorClienteId(clienteId);
+
+    // assert
+    expect(component.consultarExamenesPorClienteId).toBeTruthy();
+    component.listaExamenes.subscribe((resultado) => {
+      expect(1).toBe(resultado.length);
+    });
   });
 });
