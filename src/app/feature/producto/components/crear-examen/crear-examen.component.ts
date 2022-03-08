@@ -27,15 +27,23 @@ export class CrearExamenComponent implements OnInit {
 
   ngOnInit(): void {
     this.construirFormularioExamen();
-    this.cargarListas();
+    this.cargarListasCertificaciones();
+    this.cargarListasClientes();
   }
 
-  async cargarListas() {
+  async cargarListasCertificaciones() {
     try {
       this.listaCertificaciones = await this.certificacionService
         .consultar()
         .toPromise()
         .then();
+    } catch (error) {
+      console.log(error.error.mensaje);
+    }
+  }
+
+  async cargarListasClientes() {
+    try {
       this.listaClientes = await this.clienteService
         .consultar()
         .toPromise()
@@ -44,6 +52,7 @@ export class CrearExamenComponent implements OnInit {
       console.log(error.error.mensaje);
     }
   }
+
   async crear() {
     try {
       this.examen = await this.examenService

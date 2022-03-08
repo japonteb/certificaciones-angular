@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,12 +17,21 @@ import { CertificacionService } from '@producto/shared/service/certificacion.ser
 import { ClienteService } from '@producto/shared/service/cliente.service';
 import { ExamenService } from '@producto/shared/service/examen.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
+import { of } from 'rxjs';
 import { CrearExamenComponent } from './crear-examen.component';
 
 describe('CrearExamenComponent', () => {
   let component: CrearExamenComponent;
   let fixture: ComponentFixture<CrearExamenComponent>;
   let examenService: ExamenService;
+  let clienteService: ClienteService;
+  let certificacionService: CertificacionService;
+  const listaClientes: Cliente[] = [new Cliente(1, 'test nombre', 1)];
+  const listaCertificaciones: Certificacion[] = [
+    new Certificacion(1, 'Test nombre', 'Test Detalle', 120, 500),
+    new Certificacion(2, 'Test nombre 2', 'Test Detalle 2', 150, 700),
+  ];
+
   const certificacion: Certificacion = new Certificacion(
     1,
     'Test nombre',
@@ -53,6 +68,8 @@ describe('CrearExamenComponent', () => {
     fixture = TestBed.createComponent(CrearExamenComponent);
     component = fixture.componentInstance;
     examenService = TestBed.inject(ExamenService);
+    clienteService = TestBed.inject(ClienteService);
+    certificacionService = TestBed.inject(CertificacionService);
     spyOn(examenService, 'guardar');
   });
 
@@ -84,4 +101,36 @@ describe('CrearExamenComponent', () => {
     // assert
     expect(component.examenForm.valid).toBeTruthy();
   });
+
+  it(`#cargar Listas Clientes -> Prueba del método para cargar lista de clientes`, fakeAsync(() => {
+    const respuestaServicioConsultarClientes = spyOn(
+      clienteService,
+      'consultar'
+    ).and.returnValue(of(listaClientes));
+
+    component.cargarListasClientes();
+    tick(100);
+
+    // assert
+    expect(component.cargarListasClientes).toBeTruthy();
+    expect(respuestaServicioConsultarClientes).toHaveBeenCalled();
+    expect(component.listaClientes).toBe(listaClientes);
+    expect(respuestaServicioConsultarClientes).toHaveBeenCalled();
+  }));
+
+  it(`#cargar Listas Certificaciones -> Prueba del método para cargar lista de certificaciones`, fakeAsync(() => {
+    const respuestaServicioConsultarCertificaciones = spyOn(
+      certificacionService,
+      'consultar'
+    ).and.returnValue(of(listaCertificaciones));
+
+    component.cargarListasCertificaciones();
+    tick(100);
+
+    // assert
+    expect(component.cargarListasCertificaciones).toBeTruthy();
+    expect(respuestaServicioConsultarCertificaciones).toHaveBeenCalled();
+    expect(component.listaCertificaciones).toBe(listaCertificaciones);
+    expect(respuestaServicioConsultarCertificaciones).toHaveBeenCalled();
+  }));
 });
