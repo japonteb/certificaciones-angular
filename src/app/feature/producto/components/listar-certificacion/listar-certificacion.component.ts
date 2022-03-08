@@ -14,6 +14,8 @@ const MENSAJE_CONFIRMAR_ELIMINAR_CERTIFICACION =
 export class ListarCertificacionComponent implements OnInit {
   public listaCertificaciones: Observable<Certificacion[]>;
   columnasAMostrar = ['nombre', 'detalle', 'duracion', 'precio', 'borrar'];
+  existeError = false;
+  mensajeError: string;
 
   constructor(protected certificacionService: CertificacionService) {}
 
@@ -27,7 +29,8 @@ export class ListarCertificacionComponent implements OnInit {
         await this.certificacionService.eliminar(certificacionId).toPromise();
         this.listaCertificaciones = this.certificacionService.consultar();
       } catch (error) {
-        console.log(error);
+        this.mensajeError = error.error.mensaje;
+        this.existeError = true;
       }
     }
   }

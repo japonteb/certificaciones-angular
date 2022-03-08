@@ -4,7 +4,7 @@
     Certificaciones disponibles
   </mat-toolbar>
 
-  <div *ngIf="listaCertificaciones | async; else loading">
+  <div *ngIf="listaCertificaciones | async; else loading ">
     <table mat-table [dataSource]="listaCertificaciones" class="mat-elevation-z8">
       <caption>Lista de certificaciones disponibles.</caption>
       <!-- Columna nombre -->
@@ -49,5 +49,8 @@
       <mat-spinner></mat-spinner>
     </div>
   </ng-template>
-
 </mat-card>
+
+<div *ngIf="existeError">
+  <p>{{mensajeError}}</p>
+</div>

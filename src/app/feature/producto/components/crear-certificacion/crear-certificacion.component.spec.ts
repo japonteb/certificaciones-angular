@@ -13,7 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Certificacion } from '@producto/shared/model/certificacion';
 import { CertificacionService } from '@producto/shared/service/certificacion.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { CrearCertificacionComponent } from './crear-certificacion.component';
 
@@ -80,6 +80,27 @@ describe('CrearCertificacionComponent', () => {
     // assert
     expect(component.certificacion).toBe(certificacion);
     expect(respuestaServicioGuardar).toHaveBeenCalled();
+  }));
+
+  it(`#crear -> Debería presentarse un error e irse a catch, y mostrar el mensaje de error`, fakeAsync(() => {
+    // arrange
+    const mensajeError =
+      'No fue posible crear la certificación, ocurrió un error.';
+    component.construirFormularioCertificacion();
+    const respuestaServicioGuardar = spyOn(
+      certificacionService,
+      'guardar'
+    ).and.returnValue(
+      throwError({ status: 404, error: { mensaje: mensajeError } })
+    );
+
+    // act
+    component.crear();
+    tick(100);
+    // assert
+    expect(respuestaServicioGuardar).toHaveBeenCalled();
+    expect(component.mensajeError).toBe(mensajeError);
+    expect(component.existeError).toBeTrue();
   }));
 
   it(`#construirFormularioCertificacion -> Formulario invalido cuando está vacio`, () => {

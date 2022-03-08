@@ -11,6 +11,9 @@ import { CertificacionService } from '@producto/shared/service/certificacion.ser
 export class CrearCertificacionComponent implements OnInit {
   certificacionForm: FormGroup;
   certificacion: Certificacion;
+  existeError = false;
+  mensajeError: string;
+
   constructor(protected certificacionServices: CertificacionService) {}
 
   ngOnInit(): void {
@@ -24,7 +27,8 @@ export class CrearCertificacionComponent implements OnInit {
         .toPromise()
         .then();
     } catch (error) {
-      console.log(error.error.mensaje);
+      this.mensajeError = error.error.mensaje;
+      this.existeError = true;
     }
   }
 

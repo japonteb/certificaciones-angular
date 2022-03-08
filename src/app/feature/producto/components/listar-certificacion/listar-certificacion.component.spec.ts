@@ -12,7 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Certificacion } from '@producto/shared/model/certificacion';
 import { CertificacionService } from '@producto/shared/service/certificacion.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { ListarCertificacionComponent } from './listar-certificacion.component';
 
@@ -112,4 +112,29 @@ describe('ListarCertificacionComponent', () => {
     // assert
     expect(confirmMensaje).toHaveBeenCalled();
   });
+
+  it('Deberia no eliminar la certificación y mostrar el mensaje de error', fakeAsync(() => {
+    // arrange
+    const mensajeError = 'No es posible eliminar la certificación';
+    const respuestaServicioEliminar = spyOn(
+      certificacionService,
+      'eliminar'
+    ).and.returnValue(
+      throwError({ status: 404, error: { mensaje: mensajeError } })
+    );
+
+    const respuestaConfirmarAlert = spyOn(
+      component,
+      'confirmarEliminarCertificacion'
+    ).and.returnValue(true);
+
+    // act
+    component.eliminarCertificacion(2);
+    tick(100);
+    // assert
+    expect(respuestaServicioEliminar).toHaveBeenCalled();
+    expect(respuestaConfirmarAlert).toHaveBeenCalled();
+    expect(component.mensajeError).toBe(mensajeError);
+    expect(component.existeError).toBeTrue();
+  }));
 });

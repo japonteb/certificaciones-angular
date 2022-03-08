@@ -1,5 +1,5 @@
 <h1>Registrar Certificación</h1>
-<div class="contenedor">
+<div class="contenedor" *ngIf="!existeError">
   <form [formGroup]="certificacionForm" (ngSubmit)="crear()">
 
     <div class="row">
@@ -41,4 +41,8 @@
 
     <button type="submit" mat-raised-button color="primary" id="botonSubmit">Crear</button>
   </form>
+</div>
+
+<div *ngIf="existeError">
+  <p>{{mensajeError}}</p>
 </div>
