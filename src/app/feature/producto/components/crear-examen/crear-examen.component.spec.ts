@@ -70,7 +70,6 @@ describe('CrearExamenComponent', () => {
     examenService = TestBed.inject(ExamenService);
     clienteService = TestBed.inject(ClienteService);
     certificacionService = TestBed.inject(CertificacionService);
-    spyOn(examenService, 'guardar');
   });
 
   it('should create', () => {
@@ -132,5 +131,21 @@ describe('CrearExamenComponent', () => {
     expect(respuestaServicioConsultarCertificaciones).toHaveBeenCalled();
     expect(component.listaCertificaciones).toBe(listaCertificaciones);
     expect(respuestaServicioConsultarCertificaciones).toHaveBeenCalled();
+  }));
+
+  it(`#crear -> Debería llamar al servicio guardar examen`, fakeAsync(() => {
+    // arrange
+    component.construirFormularioExamen();
+    const respuestaServicioGuardar = spyOn(
+      examenService,
+      'guardar'
+    ).and.returnValue(of(true));
+
+    // act
+    component.crear();
+    tick(100);
+    // assert
+    expect(component.examenCreado).toBe(true);
+    expect(respuestaServicioGuardar).toHaveBeenCalled();
   }));
 });
