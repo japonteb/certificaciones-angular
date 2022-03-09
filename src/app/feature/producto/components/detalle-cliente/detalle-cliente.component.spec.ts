@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +15,7 @@ import { ExamenCertificacion } from '@producto/shared/model/examen-certificacion
 import { ClienteService } from '@producto/shared/service/cliente.service';
 import { ExamenService } from '@producto/shared/service/examen.service';
 import { AppMaterialModule } from '@shared/app-material/app-material.module';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { DetalleClienteComponent } from './detalle-cliente.component';
 
 describe('DetalleClienteComponent', () => {
@@ -99,6 +104,30 @@ describe('DetalleClienteComponent', () => {
     expect(component.consultarPorId).toBeTruthy();
     expect(component.cliente).toBe(clienteDummy);
   });
+
+  it(`Deberia presentarse un error e irse a catch, y mostrar mensaje de error`, fakeAsync(() => {
+    // arrange
+    const clienteId = 1;
+    const mensajeError =
+      'No fue posible consultar el cliente por id, ocurrió un error.';
+    const respuestaServicioConsultarClientePorId = spyOn(
+      clienteService,
+      'consultarPorId'
+    )
+      .withArgs(clienteId)
+      .and.returnValue(
+        throwError({ status: 404, error: { mensaje: mensajeError } })
+      );
+
+    // act
+    component.consultarPorId(clienteId);
+    tick(100);
+
+    // assert
+    expect(respuestaServicioConsultarClientePorId).toHaveBeenCalled();
+    expect(component.mensajeError).toBe(mensajeError);
+    expect(component.existeError).toBeTrue();
+  }));
 
   it('Deberia buscar exámenes por el id del cliente ', () => {
     // arrange
