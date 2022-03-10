@@ -1,53 +1,47 @@
-<div class="row mt-5" *ngIf="cliente">
-  <div class="col-md-4 mx-auto">
-    <mat-card class="detalle-cliente-card">
-      <mat-card-subtitle>Cliente</mat-card-subtitle>
-      <mat-card-title>Nombre: {{cliente.nombre}}</mat-card-title>
-      <mat-card-content>
-        <p>Tipo de cliente: {{ cliente.tipoCliente }}</p>
-      </mat-card-content>
-      <mat-divider inset></mat-divider>
+<div class="container">
+  <h2>Cliente</h2>
+  <h3>Nombre: {{cliente.nombre}}</h3>
+  <h3>Tipo de cliente: {{ cliente.tipoCliente }}</h3>
+  <mat-divider inset></mat-divider>
 
-      <mat-toolbar color="primary">
-        Examenes programados
-      </mat-toolbar>
+  <mat-toolbar color="primary">
+    Examenes programados
+  </mat-toolbar>
 
-      <div *ngIf="listaExamenes | async; else loading">
-        <table mat-table [dataSource]="listaExamenes" class="mat-elevation-z8">
-          <caption>Lista de examenes programados.</caption>
-          <!-- Columna nombre -->
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef> Nombre Certificación</th>
-            <td mat-cell *matCellDef="let examen"> {{examen.nombre}} </td>
-          </ng-container>
+  <div *ngIf="listaExamenes | async; else loading">
+    <table mat-table [dataSource]="listaExamenes" class="mat-elevation-z8">
+      <caption>Lista de examenes programados.</caption>
+      <!-- Columna nombre -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre Certificación</th>
+        <td mat-cell *matCellDef="let examen"> {{examen.nombre}} </td>
+      </ng-container>
 
-          <!-- Columna detalle -->
-          <ng-container matColumnDef="detalle">
-            <th mat-header-cell *matHeaderCellDef> Detalle Certificación </th>
-            <td mat-cell *matCellDef="let examen"> {{examen.detalle}} </td>
-          </ng-container>
+      <!-- Columna detalle -->
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef> Detalle Certificación </th>
+        <td mat-cell *matCellDef="let examen"> {{examen.detalle}} </td>
+      </ng-container>
 
-          <!-- Columna fecha de presentación del examen -->
-          <ng-container matColumnDef="fechaPresentacion">
-            <th mat-header-cell *matHeaderCellDef> Fecha Presentación </th>
-            <td mat-cell *matCellDef="let examen"> {{examen.fechaPresentacion}} </td>
-          </ng-container>
+      <!-- Columna fecha de presentación del examen -->
+      <ng-container matColumnDef="fechaPresentacion">
+        <th mat-header-cell *matHeaderCellDef> Fecha Presentación </th>
+        <td mat-cell *matCellDef="let examen"> {{examen.fechaPresentacion | date:'dd/MM/yyyy, h:mm a'}} </td>
+      </ng-container>
 
-          <!-- Columna precio total del examen-->
-          <ng-container matColumnDef="precioTotal">
-            <th mat-header-cell *matHeaderCellDef> Precio Total</th>
-            <td mat-cell *matCellDef="let examen"> {{examen.precioTotal}} </td>
-          </ng-container>
+      <!-- Columna precio total del examen-->
+      <ng-container matColumnDef="precioTotal">
+        <th mat-header-cell *matHeaderCellDef> Precio Total (COP)</th>
+        <td mat-cell *matCellDef="let examen"> {{ examen.precioTotal | currency }} </td>
+      </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="columnasAMostrar"></tr>
-          <tr mat-row *matRowDef="let row; columns: columnasAMostrar;"></tr>
-        </table>
-      </div>
-      <ng-template #loading>
-        <div class="loading-spinner">
-          <mat-spinner></mat-spinner>
-        </div>
-      </ng-template>
-    </mat-card>
+      <tr mat-header-row *matHeaderRowDef="columnasAMostrar"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasAMostrar;"></tr>
+    </table>
   </div>
+  <ng-template #loading>
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
 </div>
